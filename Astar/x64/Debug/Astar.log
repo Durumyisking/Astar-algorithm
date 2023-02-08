@@ -1,6 +1,5 @@
-﻿  main.cpp
-E:\Cpp_Git\Astar\Astar\main.cpp(33,15): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-E:\Cpp_Git\Astar\Astar\main.cpp(33,17): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-E:\Cpp_Git\Astar\Astar\main.cpp(64,13): warning C4244: 'return': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-E:\Cpp_Git\Astar\Astar\main.cpp(187,16): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Astar.vcxproj -> E:\Cpp_Git\Astar\x64\Debug\Astar.exe
+﻿  Astar.cpp
+  Node.cpp
+  main.cpp
+  코드를 생성하고 있습니다...
+  Astar.vcxproj -> E:\Cpp\Astar-algorithm\x64\Debug\Astar.exe
