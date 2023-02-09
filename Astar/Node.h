@@ -5,9 +5,7 @@ class CNode
 //func
 public:
 	CNode(int _x, int _y, int _name, CAstar* _aStar)
-		: NextNode(nullptr)
-		, ParentNode(nullptr)
-		, bClosed(false)
+		: ParentNode(nullptr)
 		, aStar(_aStar)
 	{
 		x = _x;
@@ -26,21 +24,20 @@ public:
 	{
 		return this->f > a.f;
 	}
-
+	bool operator==(const CNode& a) const
+	{
+		return this->f == a.f;
+	}
 
 	void SetScore();
 
-	void GetAstar();
-
 // var
 public:
-	CNode* NextNode;
 	CNode* ParentNode;
 	int x, y;
 	int g, h, f;
 	char nodeName;
-
-	bool bClosed;
+	int number;
 
 	CAstar* aStar;
 };

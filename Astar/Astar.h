@@ -3,13 +3,17 @@
 
 #include "Node.h"
 
+static int  nodeCount = 0;
 
 struct cmp
 {
 	bool operator()(CNode* a, CNode* b)
 	{
-		//if (a->f == b->f) // 같은건 제외
-		//	return a->f > b->f;
+		if (a->f == b->f) // 같을경우
+		{
+			// 늦게 생성된 노드로 설정한다.
+			return a->number < b->number;
+		}
 
 		// f값 작은게 우선
 		return a->f > b->f;

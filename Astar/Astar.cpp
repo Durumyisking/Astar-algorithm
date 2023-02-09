@@ -1,5 +1,7 @@
 #include "Astar.h"
 
+//static int  nodeCount = 0;
+
 CAstar::CAstar(char* _map, int x, int y, int endPosX, int endPosY)
 	: endNode(nullptr)
 	, map(_map)
@@ -9,7 +11,8 @@ CAstar::CAstar(char* _map, int x, int y, int endPosX, int endPosY)
 	, endPosY(endPosY)
 	, bInitallize(false)
 {
-	startNode = new CNode(0, 2, 'S', this);
+
+	startNode = new CNode(0, 0, 'S', this);
 
 	// openlist push
 	openList.push(startNode);
@@ -32,6 +35,12 @@ CAstar::CAstar(char* _map, int x, int y, int endPosX, int endPosY)
 
 CAstar::~CAstar()
 {
+	int size = Result.size();
+	for (int i = 0; i < size; i++)
+	{
+		std::cout<< "<-" << "(" << Result.top()->x << "," << Result.top()->y << ")";
+		Result.pop();
+	}
 }
 
 void CAstar::SetOpenList(CNode* _node)
@@ -76,7 +85,7 @@ void CAstar::Explore(CNode* _node)
 	{
 		for (int j = -1; j <= 1; j++)
 		{
-			// 자기 자신 continue (가로세로만)
+			// 자기 자신 continue (가로세로 만)
 			if (0 == i && 0 == j)
 				continue;
 
@@ -94,10 +103,10 @@ void CAstar::Explore(CNode* _node)
 				continue;
 
 			// 이동 불가지형 continue
-			if ('1' == map[y * sizeX + x])
+			if ('1' == map[y * sizeY + x])
 				continue;
 
-			// 열린/닫힌 목록에 이미 있으면 continue
+			// 닫힌 목록에 이미 있으면 continue
 			bool flag = false;
 			for (CNode* node : closeList)
 			{
@@ -107,10 +116,19 @@ void CAstar::Explore(CNode* _node)
 					break;
 				}
 			}
+
+			// 열린 목록에 해당 노드 있으면
 			for (CNode* node : iterableOpenList)
 			{
 				if (x == node->x && y == node->y)
 				{
+					// 부모노드와 f값 비교
+					if (node->f < _node->f)
+					{
+						Result.pop();
+						Result.push(node);
+					}
+					
 					flag = true;
 					break;
 				}
@@ -119,16 +137,19 @@ void CAstar::Explore(CNode* _node)
 			if (flag)
 				continue;
 
-
 			CNode* newNode;
 			if (x == endPosX && y == endPosY)
 				newNode = new CNode(x, y, 'E', this);
 			else
 				newNode = new CNode(x, y, 'N', this);
 
+			++nodeCount;
+			newNode->number = nodeCount;
+
 			newNode->ParentNode = _node; // 새 노드의 부모로 현재 노드를 지정
 
 			newNode->SetScore();
+
 
 			iterableOpenList.push_back(newNode);
 			openList.push(newNode);
